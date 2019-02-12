@@ -7,7 +7,7 @@ namespace Finances.Data.Interfaces
 {
     public interface IRepository<T> where T : class
     {
-        T Get(int key);
+        T Get(object key);
         IQueryable<T> GetAll();
         void Add(T entity);
         void Delete(T entity);

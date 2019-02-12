@@ -34,7 +34,7 @@ namespace Finances.Data.Repositories
                 _context.SaveChanges();
             }
 
-            public T Get(int key)
+            public T Get(object key)
             {
                 return _context.Set<T>().Find(key);
             }

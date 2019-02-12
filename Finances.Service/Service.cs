@@ -31,6 +31,11 @@ namespace Finances.Service
             return _repository.GetAll().AsEnumerable();
         }
 
+        public T Get(object key)
+        {
+            return _repository.Get(key);
+        }
+
         public void Update(T entity)
         {
             _repository.Update(entity);

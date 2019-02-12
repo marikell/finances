@@ -9,6 +9,7 @@ namespace Finances.Service.Interfaces
         void Add(T entity);
         void Delete(T entity);
         void Update(T entity);
+        T Get(object key);
         IEnumerable<T> GetAll();
     }
 }
