@@ -14,10 +14,10 @@ namespace Finances.Web.Controllers
 {
     public class AccountController : Controller
     {
-        private IAccountService _service;
-        private UserManager<Account> _userManager;
-        private SignInManager<Account> _signInManager;
-        public AccountController(IAccountService service, UserManager<Account> userManager, SignInManager<Account> signInManager)
+        private IUserService _service;
+        private UserManager<User> _userManager;
+        private SignInManager<User> _signInManager;
+        public AccountController(IUserService service, UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _service = service;
             _userManager = userManager;
@@ -80,7 +80,7 @@ namespace Finances.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                Account account = new Account { UserName = registerViewModel.UserName, Email = registerViewModel.Email, Description = registerViewModel.Description };
+                User account = new User { UserName = registerViewModel.UserName, Email = registerViewModel.Email,  CelUser = "" };
                 IdentityResult identityResult = await _userManager.CreateAsync(account, registerViewModel.Password);
                 if (identityResult.Succeeded)
                 {

@@ -41,9 +41,7 @@ namespace Finances.Data.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    DatStart = table.Column<DateTime>(nullable: false),
-                    DatEnd = table.Column<DateTime>(nullable: false),
-                    Description = table.Column<string>(maxLength: 150, nullable: false)
+                    CelUser = table.Column<string>(maxLength: 10, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -156,65 +154,6 @@ namespace Finances.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Categories",
-                columns: table => new
-                {
-                    IdCategory = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Description = table.Column<string>(maxLength: 150, nullable: false),
-                    Id = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Categories", x => x.IdCategory);
-                    table.ForeignKey(
-                        name: "FK_Categories_AspNetUsers_Id",
-                        column: x => x.Id,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Fields",
-                columns: table => new
-                {
-                    IdField = table.Column<int>(nullable: false),
-                    Description = table.Column<string>(maxLength: 150, nullable: false),
-                    IdCategory = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Fields", x => x.IdField);
-                    table.ForeignKey(
-                        name: "FK_Fields_Categories_IdField",
-                        column: x => x.IdField,
-                        principalTable: "Categories",
-                        principalColumn: "IdCategory",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SubCategories",
-                columns: table => new
-                {
-                    IdSubCategory = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Description = table.Column<string>(maxLength: 150, nullable: false),
-                    IdCategory = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SubCategories", x => x.IdSubCategory);
-                    table.ForeignKey(
-                        name: "FK_SubCategories_Categories_IdCategory",
-                        column: x => x.IdCategory,
-                        principalTable: "Categories",
-                        principalColumn: "IdCategory",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -253,16 +192,6 @@ namespace Finances.Data.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Categories_Id",
-                table: "Categories",
-                column: "Id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SubCategories_IdCategory",
-                table: "SubCategories",
-                column: "IdCategory");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -283,16 +212,7 @@ namespace Finances.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Fields");
-
-            migrationBuilder.DropTable(
-                name: "SubCategories");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
-
-            migrationBuilder.DropTable(
-                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

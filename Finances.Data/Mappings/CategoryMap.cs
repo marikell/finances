@@ -9,13 +9,14 @@ namespace Finances.Data.Mappings
 {
     public class CategoryMap : IEntityTypeConfiguration<Category>
     {
+
         public void Configure(EntityTypeBuilder<Category> builder)
         {
             builder.HasKey(o => o.IdCategory);
-            builder.HasOne(o => o.Account).WithMany(o => o.Categories).HasForeignKey(o => o.Id);
-            builder.Property(o => o.Description).HasMaxLength(150).IsRequired();
+            builder.Property(o => o.DsCategory).HasMaxLength(50).IsRequired();
             builder.HasMany(o => o.SubCategories).WithOne(o => o.Category).HasForeignKey(o => o.IdSubCategory);
-            builder.HasMany(o => o.Fields).WithOne(o => o.Category).HasForeignKey(o => o.IdField);
         }
     }
+
 }
+

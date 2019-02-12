@@ -7,9 +7,9 @@ using System.Text;
 
 namespace Finances.Service
 {
-    public class AccountService: Service<Account>, IAccountService
+    public class UserService: Service<User>, IUserService
     {
-        public AccountService(IAccountRepository repository):base(repository)
+        public UserService(IUserRepository repository):base(repository)
         {
 
         }

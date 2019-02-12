@@ -6,8 +6,8 @@ using System.Text;
 
 namespace Finances.Data.Repositories
 {
-    public class AccountRepository: Repository<Account>, IAccountRepository
+    public class UserRepository: Repository<User>, IUserRepository
     {
-        public AccountRepository(FinancesDbContext context) : base(context) { }
+        public UserRepository(FinancesDbContext context) : base(context) { }
     }
 }

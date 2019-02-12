@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Design;
 
 namespace Finances.Data
 {
-    public class FinancesDbContext: IdentityDbContext<Account>,IDesignTimeDbContextFactory<DbContext>
+    public class FinancesDbContext: IdentityDbContext<User>,IDesignTimeDbContextFactory<DbContext>
     {
         public FinancesDbContext(DbContextOptions options): base(options)
         {
@@ -16,10 +16,11 @@ namespace Finances.Data
         {
 
         }
-        public DbSet<Account> Accounts { get; set; }
-        public DbSet<Field> Fields { get; set; }
+        public DbSet<TransactionType> TransactionsType { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
+
         public DbContext CreateDbContext(string[] args)
         {
             var builder = new DbContextOptionsBuilder<FinancesDbContext>();
@@ -30,10 +31,12 @@ namespace Finances.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new AccountMap());
-            modelBuilder.ApplyConfiguration(new FieldMap());
-            modelBuilder.ApplyConfiguration(new CategoryMap());
+            modelBuilder.ApplyConfiguration(new UserMap());
+            modelBuilder.ApplyConfiguration(new TransactionTypeMap());
+            modelBuilder.ApplyConfiguration(new TransactionMap());
             modelBuilder.ApplyConfiguration(new SubCategoryMap());
+            modelBuilder.ApplyConfiguration(new CategoryMap());
+
             base.OnModelCreating(modelBuilder);
         }
 

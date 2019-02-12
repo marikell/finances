@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Finances.Service.Interfaces
+namespace Finances.Data.Interfaces
 {
-    public interface IAccountService: IService<Account>
+    public interface IUserRepository: IRepository<User>
     {
     }
 }

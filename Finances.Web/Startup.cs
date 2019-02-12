@@ -29,7 +29,7 @@ namespace Finances.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddIdentity<Account, IdentityRole>().AddEntityFrameworkStores<FinancesDbContext>().AddDefaultTokenProviders();
+            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<FinancesDbContext>().AddDefaultTokenProviders();
             services.AddDbContext<FinancesDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -39,8 +39,8 @@ namespace Finances.Web
             {
                 options.Conventions.AuthorizePage("/Index/");
             });
-            services.AddTransient<IAccountService, AccountService>();
-            services.AddTransient<IAccountRepository, AccountRepository>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IUserRepository, UserRepository>();
 
 
         }

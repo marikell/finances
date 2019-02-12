@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Finances.Data.Migrations
 {
     [DbContext(typeof(FinancesDbContext))]
-    [Migration("20180813192630_Initial")]
-    partial class Initial
+    [Migration("20190212183014_Transaction Type")]
+    partial class TransactionType
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,23 +21,34 @@ namespace Finances.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Finances.Data.Models.Account", b =>
+            modelBuilder.Entity("Finances.Data.Models.TransactionType", b =>
+                {
+                    b.Property<long>("IdTransactionType")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("DsTransactionType")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.HasKey("IdTransactionType");
+
+                    b.ToTable("TransactionsType");
+                });
+
+            modelBuilder.Entity("Finances.Data.Models.User", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("AccessFailedCount");
 
+                    b.Property<string>("CelUser")
+                        .IsRequired()
+                        .HasMaxLength(10);
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
-
-                    b.Property<DateTime>("DatEnd");
-
-                    b.Property<DateTime>("DatStart");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(150);
 
                     b.Property<string>("Email")
                         .HasMaxLength(256);
@@ -78,59 +89,6 @@ namespace Finances.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("Finances.Data.Models.Category", b =>
-                {
-                    b.Property<int>("IdCategory")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(150);
-
-                    b.Property<string>("Id");
-
-                    b.HasKey("IdCategory");
-
-                    b.HasIndex("Id");
-
-                    b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("Finances.Data.Models.Field", b =>
-                {
-                    b.Property<int>("IdField");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(150);
-
-                    b.Property<int>("IdCategory");
-
-                    b.HasKey("IdField");
-
-                    b.ToTable("Fields");
-                });
-
-            modelBuilder.Entity("Finances.Data.Models.SubCategory", b =>
-                {
-                    b.Property<int>("IdSubCategory")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(150);
-
-                    b.Property<int>("IdCategory");
-
-                    b.HasKey("IdSubCategory");
-
-                    b.HasIndex("IdCategory");
-
-                    b.ToTable("SubCategories");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -243,29 +201,6 @@ namespace Finances.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Finances.Data.Models.Category", b =>
-                {
-                    b.HasOne("Finances.Data.Models.Account", "Account")
-                        .WithMany("Categories")
-                        .HasForeignKey("Id");
-                });
-
-            modelBuilder.Entity("Finances.Data.Models.Field", b =>
-                {
-                    b.HasOne("Finances.Data.Models.Category", "Category")
-                        .WithMany("Fields")
-                        .HasForeignKey("IdField")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Finances.Data.Models.SubCategory", b =>
-                {
-                    b.HasOne("Finances.Data.Models.Category", "Category")
-                        .WithMany("SubCategories")
-                        .HasForeignKey("IdCategory")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -276,7 +211,7 @@ namespace Finances.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Finances.Data.Models.Account")
+                    b.HasOne("Finances.Data.Models.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -284,7 +219,7 @@ namespace Finances.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Finances.Data.Models.Account")
+                    b.HasOne("Finances.Data.Models.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -297,7 +232,7 @@ namespace Finances.Data.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Finances.Data.Models.Account")
+                    b.HasOne("Finances.Data.Models.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -305,7 +240,7 @@ namespace Finances.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Finances.Data.Models.Account")
+                    b.HasOne("Finances.Data.Models.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);

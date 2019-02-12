@@ -7,11 +7,11 @@ using System.Text;
 
 namespace Finances.Data.Mappings
 {
-    public class AccountMap : IEntityTypeConfiguration<Account>
+    public class UserMap : IEntityTypeConfiguration<User>
     {
-        public void Configure(EntityTypeBuilder<Account> builder)
+        public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.Property(o => o.Description).HasMaxLength(150).IsRequired();
+            builder.Property(o => o.CelUser).HasMaxLength(10).IsRequired();
             //builder.HasMany(o => o.Categories).WithOne(o => o.Account).HasForeignKey(o => o.IdCategory);
         }
     }

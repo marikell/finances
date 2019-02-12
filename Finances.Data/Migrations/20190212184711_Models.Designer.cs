@@ -4,14 +4,16 @@ using Finances.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Finances.Data.Migrations
 {
     [DbContext(typeof(FinancesDbContext))]
-    partial class FinancesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190212184711_Models")]
+    partial class Models
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,8 +69,7 @@ namespace Finances.Data.Migrations
 
                     b.Property<long>("IdTransactionType");
 
-                    b.Property<string>("IdUser")
-                        .IsRequired();
+                    b.Property<string>("IdUser");
 
                     b.Property<string>("IdUserDestination");
 
@@ -289,8 +290,7 @@ namespace Finances.Data.Migrations
 
                     b.HasOne("Finances.Data.Models.User", "User")
                         .WithMany("Transactions")
-                        .HasForeignKey("IdUser")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("IdUser");
 
                     b.HasOne("Finances.Data.Models.User", "UserDestination")
                         .WithMany("TransactionsDestined")
