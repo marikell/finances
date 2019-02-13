@@ -3,13 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finances.Web", "Finances.Web\Finances.Web.csproj", "{3EDCEC60-9C59-4844-B6AE-D5E504173D2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Finances.Web", "Finances.Web\Finances.Web.csproj", "{3EDCEC60-9C59-4844-B6AE-D5E504173D2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finances.Excel", "Finances.Excel\Finances.Excel.csproj", "{CAB1A32B-1B07-489B-BE17-89CEDD3E583F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Finances.Data", "Finances.Data\Finances.Data.csproj", "{3B186F44-FCF3-478D-964E-68AA0E58F4EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finances.Data", "Finances.Data\Finances.Data.csproj", "{3B186F44-FCF3-478D-964E-68AA0E58F4EC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finances.Service", "Finances.Service\Finances.Service.csproj", "{DA485A12-2443-44E5-97F9-2DAA8E3E3381}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Finances.Service", "Finances.Service\Finances.Service.csproj", "{DA485A12-2443-44E5-97F9-2DAA8E3E3381}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +19,6 @@ Global
 		{3EDCEC60-9C59-4844-B6AE-D5E504173D2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3EDCEC60-9C59-4844-B6AE-D5E504173D2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3EDCEC60-9C59-4844-B6AE-D5E504173D2F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CAB1A32B-1B07-489B-BE17-89CEDD3E583F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CAB1A32B-1B07-489B-BE17-89CEDD3E583F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CAB1A32B-1B07-489B-BE17-89CEDD3E583F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CAB1A32B-1B07-489B-BE17-89CEDD3E583F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3B186F44-FCF3-478D-964E-68AA0E58F4EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3B186F44-FCF3-478D-964E-68AA0E58F4EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B186F44-FCF3-478D-964E-68AA0E58F4EC}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -10,7 +10,7 @@ namespace Finances.Data.Interfaces
         T Get(object key);
         IQueryable<T> GetAll();
         void Add(T entity);
-        void Delete(T entity);
+        void Delete(object key);
         void Update(T entity);
     }
 }

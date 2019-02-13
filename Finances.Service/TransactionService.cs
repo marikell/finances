@@ -7,8 +7,8 @@ using System.Text;
 
 namespace Finances.Service
 {
-    public class CategoryService: Service<Category>, ICategoryService
+    public class TransactionService: Service<Transaction>, ITransactionService
     {
-        public CategoryService(ICategoryRepository repository) : base(repository) { }
+        public TransactionService(ITransactionRepository repository): base(repository) { }       
     }
 }

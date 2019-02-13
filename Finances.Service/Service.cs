@@ -21,9 +21,9 @@ namespace Finances.Service
             _repository.Add(entity);
         }
 
-        public void Delete(T entity)
+        public void Delete(object key)
         {
-            _repository.Delete(entity);
+            _repository.Delete(key);
         }
 
         public IEnumerable<T> GetAll()

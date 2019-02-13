@@ -18,7 +18,7 @@ namespace Finances.Data.Models
         public Category Category { get; set; }
         public User User { get; set; }
         public User UserDestination { get; set; }
-
         public TransactionType TransactionType { get; set; }
+        public bool HasReceipt { get; set; }
     }
 }

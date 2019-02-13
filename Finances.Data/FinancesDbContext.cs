@@ -24,8 +24,8 @@ namespace Finances.Data
         public DbContext CreateDbContext(string[] args)
         {
             var builder = new DbContextOptionsBuilder<FinancesDbContext>();
-            var connectionString = @"Server=NT-03321\SQLEXPRESS;Database=FinancesDb;Trusted_Connection=True;";
-            builder.UseSqlServer(connectionString);
+            //var connectionString = @"Server=NT-03321\SQLEXPRESS;Database=FinancesDb;Trusted_Connection=True;";
+            //builder.UseSqlServer(connectionString);
             return new FinancesDbContext(builder.Options);
         }
 

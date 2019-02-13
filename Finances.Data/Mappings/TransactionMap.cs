@@ -16,6 +16,7 @@ namespace Finances.Data.Mappings
             builder.HasOne(o => o.Category).WithMany(o => o.Transactions).HasForeignKey(o => o.IdCategory);
             builder.Property(o => o.DsTransaction).HasMaxLength(200).IsRequired();
             builder.Property(o => o.IdUser).IsRequired();
+            builder.Property(o => o.HasReceipt).IsRequired();
             builder.HasOne(o => o.User).WithMany(o => o.Transactions).HasForeignKey(o => o.IdUser);
             builder.HasOne(o => o.UserDestination).WithMany(o => o.TransactionsDestined).HasForeignKey(o => o.IdUserDestination);
 

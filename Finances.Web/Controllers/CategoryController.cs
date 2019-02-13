@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Finances.Web.Controllers
 {
+    [Route("api/categories")]
     public class CategoryController: Controller
     {
         private ICategoryService _service;
@@ -17,7 +18,7 @@ namespace Finances.Web.Controllers
             _service = service;
         }
 
-        [HttpGet("api/categories")]
+        [HttpGet]
         public IActionResult Index()
         {
             var categories = _service.GetAll();
@@ -25,11 +26,11 @@ namespace Finances.Web.Controllers
             return Json(categories);
         }
 
-        [HttpGet("api/category/{id}")]
-        public IActionResult Get()
-        {
-            return new OkObjectResult("GET");
-        }
+        //[HttpGet("{id}")]
+        //public IActionResult Get(int )
+        //{
+        //    return new OkObjectResult("GET");
+        //}
 
 
         [HttpPost("api/category")]

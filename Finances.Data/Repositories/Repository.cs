@@ -22,8 +22,9 @@ namespace Finances.Data.Repositories
                 _context.SaveChanges();
             }
 
-            public void Delete(T entity)
+            public void Delete(object key)
             {
+                var entity = _context.Set<T>().Find(key);
                 _context.Set<T>().Remove(entity);
                 _context.SaveChanges();
             }

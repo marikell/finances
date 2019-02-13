@@ -5,5 +5,5 @@ using System.Text;
 
 namespace Finances.Service.Interfaces
 {
-    public interface ICategoryService: IService<Category> { }
+    public interface ITransactionTypeService:IService<TransactionType> { }
 }
