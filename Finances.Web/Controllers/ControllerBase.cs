@@ -1,4 +1,5 @@
-﻿using Finances.Service.Interfaces;
+﻿using Finances.Data.Interfaces;
+using Finances.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace Finances.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public virtual IActionResult Index()
         {
             var entities = _service.GetAll();
 
@@ -26,7 +27,7 @@ namespace Finances.Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(object key)
+        public virtual IActionResult Get(object key)
         {
             var entity = _service.Get(key);
 
@@ -34,31 +35,52 @@ namespace Finances.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] T entity)
+        public virtual IActionResult Post([FromBody] T entity)
         {
-            _service.Add(entity);
+            IException exception = _service.Add(entity);
 
-            return Json(entity);
+            if (exception.IsValid)
+            {
+                return Json(entity);
+            }
+
+            else
+            {
+                return new BadRequestObjectResult(exception.GetException());
+            }
+
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put([FromBody] T entity)
+        public virtual IActionResult Put([FromBody] T entity)
         {
-            _service.Update(entity);
+            IException exception = _service.Update(entity);
 
-            return Json(entity);
+            if (exception.IsValid)
+            {
+                return Json(entity);
+            }
+
+            else
+            {
+                return new BadRequestObjectResult(exception.GetException());
+            }
         }
         
         [HttpDelete("{id}")]
-        public IActionResult Delete(object key)
+        public virtual IActionResult Delete(object key)
         {
-            _service.Delete(key);
+            IException exception = _service.Delete(key);
 
-            return new OkObjectResult("Deleted");
+            if (exception.IsValid)
+            {
+                return new OkObjectResult("Deleted");
+            }
+
+            else
+            {
+                return new BadRequestObjectResult(exception.GetException());
+            }
         }
-
-
-
-
     }
 }

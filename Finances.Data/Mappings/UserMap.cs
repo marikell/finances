@@ -11,8 +11,7 @@ namespace Finances.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.Property(o => o.CelUser).HasMaxLength(10).IsRequired();
-            //builder.HasMany(o => o.Categories).WithOne(o => o.Account).HasForeignKey(o => o.IdCategory);
+            builder.Property(o => o.CelUser).HasMaxLength(15).IsRequired();
         }
     }
 }

@@ -11,8 +11,8 @@ namespace Finances.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<Transaction> builder)
         {
-            builder.Property(o => o.IdTransaction).ValueGeneratedOnAdd();
             builder.HasKey(o => o.IdTransaction);
+            builder.Property(o => o.IdTransaction).UseSqlServerIdentityColumn();
             builder.HasOne(o => o.TransactionType).WithMany(o => o.Transactions).HasForeignKey(o => o.IdTransactionType);
             builder.HasOne(o => o.Category).WithMany(o => o.Transactions).HasForeignKey(o => o.IdCategory);
             builder.Property(o => o.DsTransaction).HasMaxLength(200).IsRequired();

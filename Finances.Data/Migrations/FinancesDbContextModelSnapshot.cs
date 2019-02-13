@@ -48,6 +48,8 @@ namespace Finances.Data.Migrations
 
                     b.HasKey("IdSubCategory");
 
+                    b.HasIndex("IdCategory");
+
                     b.ToTable("SubCategories");
                 });
 
@@ -115,7 +117,7 @@ namespace Finances.Data.Migrations
 
                     b.Property<string>("CelUser")
                         .IsRequired()
-                        .HasMaxLength(10);
+                        .HasMaxLength(15);
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
@@ -275,8 +277,8 @@ namespace Finances.Data.Migrations
                 {
                     b.HasOne("Finances.Data.Models.Category", "Category")
                         .WithMany("SubCategories")
-                        .HasForeignKey("IdSubCategory")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("IdCategory")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Finances.Data.Models.Transaction", b =>

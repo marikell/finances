@@ -1,4 +1,5 @@
 ﻿using Finances.Data.Interfaces;
+using Finances.Data.Models;
 using Finances.Service.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -16,14 +17,34 @@ namespace Finances.Service
             _repository = repository;
         }
 
-        public void Add(T entity)
+        public IException Add(T entity)
         {
-            _repository.Add(entity);
+            IException exception = new ExceptionResult();
+            try
+            {
+                _repository.Add(entity);
+            }
+            catch (Exception e)
+            {
+                exception.SetException(e);
+            }
+
+            return exception;
         }
 
-        public void Delete(object key)
+        public IException Delete(object key)
         {
-            _repository.Delete(key);
+            IException exception = new ExceptionResult();
+            try
+            {
+                _repository.Delete(key);
+            }
+            catch (Exception e)
+            {
+                exception.SetException(e);
+            }
+
+            return exception;
         }
 
         public IEnumerable<T> GetAll()
@@ -36,9 +57,19 @@ namespace Finances.Service
             return _repository.Get(key);
         }
 
-        public void Update(T entity)
+        public IException Update(T entity)
         {
-            _repository.Update(entity);
+            IException exception = new ExceptionResult();
+            try
+            {
+                _repository.Update(entity);
+            }
+            catch (Exception e)
+            {
+                exception.SetException(e);
+            }
+
+            return exception;
         }
     }
 }

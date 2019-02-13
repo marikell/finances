@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Finances.Data.Migrations
 {
     [DbContext(typeof(FinancesDbContext))]
-    [Migration("20190212205915_HasReceipt flag")]
-    partial class HasReceiptflag
+    [Migration("20190213115249_Celphone character change")]
+    partial class Celphonecharacterchange
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -38,7 +38,9 @@ namespace Finances.Data.Migrations
 
             modelBuilder.Entity("Finances.Data.Models.SubCategory", b =>
                 {
-                    b.Property<long>("IdSubCategory");
+                    b.Property<long>("IdSubCategory")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("DsSubCategory")
                         .IsRequired()
@@ -47,6 +49,8 @@ namespace Finances.Data.Migrations
                     b.Property<long>("IdCategory");
 
                     b.HasKey("IdSubCategory");
+
+                    b.HasIndex("IdCategory");
 
                     b.ToTable("SubCategories");
                 });
@@ -115,7 +119,7 @@ namespace Finances.Data.Migrations
 
                     b.Property<string>("CelUser")
                         .IsRequired()
-                        .HasMaxLength(10);
+                        .HasMaxLength(15);
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
@@ -275,8 +279,8 @@ namespace Finances.Data.Migrations
                 {
                     b.HasOne("Finances.Data.Models.Category", "Category")
                         .WithMany("SubCategories")
-                        .HasForeignKey("IdSubCategory")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("IdCategory")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Finances.Data.Models.Transaction", b =>

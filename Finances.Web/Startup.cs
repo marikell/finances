@@ -31,7 +31,7 @@ namespace Finances.Web
         {
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<FinancesDbContext>().AddDefaultTokenProviders();
             services.AddDbContext<FinancesDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            options.UseSqlServer(Configuration.GetConnectionString("WorkConnection")));
 
             services.AddMvc();
 
@@ -52,9 +52,7 @@ namespace Finances.Web
             services.AddTransient<ITransactionRepository, TransactionRepository>();
 
             services.AddTransient<ITransactionTypeService, TransactionTypeService>();
-
-
-
+            services.AddTransient<ITransactionTypeRepository, TransactionTypeRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
