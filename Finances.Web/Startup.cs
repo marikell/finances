@@ -11,6 +11,7 @@ using Finances.Service.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,14 +32,16 @@ namespace Finances.Web
         {
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<FinancesDbContext>().AddDefaultTokenProviders();
             services.AddDbContext<FinancesDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("WorkConnection")));
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddMvc();
 
-            services.AddMvc().AddRazorPagesOptions(options =>
+            services.AddSwaggerGen(options =>
             {
-                options.Conventions.AuthorizePage("/Index/");
+                options.SwaggerDoc("v1", new Info { Title = "FinancesAPI", Version = "v1" });
+
             });
+
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IUserRepository, UserRepository>();
 
@@ -68,14 +71,16 @@ namespace Finances.Web
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "FinancesAPI V1");
+            });
+                
             app.UseStaticFiles();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+            app.UseMvc();
         }
     }
 }
