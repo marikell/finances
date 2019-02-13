@@ -12,6 +12,7 @@ namespace Finances.Data.Mappings
 
         public void Configure(EntityTypeBuilder<Category> builder)
         {
+            builder.Property(o => o.IdCategory).ValueGeneratedOnAdd();
             builder.HasKey(o => o.IdCategory);
             builder.Property(o => o.DsCategory).HasMaxLength(50).IsRequired();
             builder.HasMany(o => o.SubCategories).WithOne(o => o.Category).HasForeignKey(o => o.IdSubCategory);

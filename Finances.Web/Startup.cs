@@ -45,6 +45,16 @@ namespace Finances.Web
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
 
+            services.AddTransient<ISubCategoryService, SubCategoryService>();
+            services.AddTransient<ISubCategoryRepository, SubCategoryRepository>();
+
+            services.AddTransient<ITransactionService, TransactionService>();
+            services.AddTransient<ITransactionRepository, TransactionRepository>();
+
+            services.AddTransient<ITransactionTypeService, TransactionTypeService>();
+
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

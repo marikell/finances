@@ -11,6 +11,7 @@ namespace Finances.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<TransactionType> builder)
         {
+            builder.Property(o => o.IdTransactionType).ValueGeneratedOnAdd();
             builder.HasKey(o => o.IdTransactionType);
             builder.Property(o => o.DsTransactionType).HasMaxLength(50).IsRequired();
         }

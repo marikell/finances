@@ -11,6 +11,7 @@ namespace Finances.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<Transaction> builder)
         {
+            builder.Property(o => o.IdTransaction).ValueGeneratedOnAdd();
             builder.HasKey(o => o.IdTransaction);
             builder.HasOne(o => o.TransactionType).WithMany(o => o.Transactions).HasForeignKey(o => o.IdTransactionType);
             builder.HasOne(o => o.Category).WithMany(o => o.Transactions).HasForeignKey(o => o.IdCategory);

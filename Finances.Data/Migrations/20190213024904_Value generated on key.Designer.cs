@@ -4,14 +4,16 @@ using Finances.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Finances.Data.Migrations
 {
     [DbContext(typeof(FinancesDbContext))]
-    partial class FinancesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190213024904_Value generated on key")]
+    partial class Valuegeneratedonkey
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
