@@ -79,7 +79,7 @@ namespace Finances.Web.Controllers
 
             else
             {
-                return new BadRequestObjectResult(exception.GetException());
+                return new JsonResult(exception.GetException());
             }
         }
     }
