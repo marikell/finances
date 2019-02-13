@@ -5,13 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Properties\Controllers\ControllerBase.cs~RF44ee2d.TMP" />
+    <None Remove="Controllers\ControllerBase.cs~RF44ee2d.TMP" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.8" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
-    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="4.0.1" />
   </ItemGroup>
 
   <ItemGroup>

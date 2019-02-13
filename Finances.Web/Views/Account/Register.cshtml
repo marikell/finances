@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Reguster";
+}
+@model Finances.Web.ViewModels.RegisterViewModel
+
+@using (Html.BeginForm("Register", "Account"))
+{
+    @Html.Label("Usuário")
+    @Html.TextBoxFor(o => o.UserName)
+    @Html.Label("Senha")
+    @Html.TextBoxFor(o => o.Password, new { @class = "form-control", @type = "password" })
+    @Html.Label("Email")
+    @Html.TextBoxFor(o => o.Email, new { @class = "form-control", @type = "password" })
+    @Html.Label("Descrição")
+    @Html.TextBoxFor(o => o.Description, new { @class = "form-control", @type = "password" })
+    <button class="btn btn-primary" type="submit">Login</button>
+}
