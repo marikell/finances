@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Finances.Web
 {
@@ -31,14 +32,21 @@ namespace Finances.Web
         {
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<FinancesDbContext>().AddDefaultTokenProviders();
             services.AddDbContext<FinancesDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("WorkConnection")));
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddCors();
             services.AddMvc();
 
-            services.AddMvc().AddRazorPagesOptions(options =>
+            //services.AddMvc().AddRazorPagesOptions(options =>
+            //{
+            //    options.Conventions.AuthorizePage("/Index/");
+            //});
+
+            services.AddSwaggerGen(c =>
             {
-                options.Conventions.AuthorizePage("/Index/");
+                c.SwaggerDoc("v1", new Info { Title = "FinancesApi", Version = "v1" });
             });
+
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IUserRepository, UserRepository>();
 
@@ -63,19 +71,23 @@ namespace Finances.Web
                 app.UseBrowserLink();
                 app.UseDeveloperExceptionPage();
             }
-            else
+  
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
             {
-                app.UseExceptionHandler("/Home/Error");
-            }
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "FinancesApi V1");
+            });
 
             app.UseStaticFiles();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials());
+
+            app.UseMvc();
         }
     }
 }

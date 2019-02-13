@@ -68,9 +68,9 @@ namespace Finances.Web.Controllers
         }
         
         [HttpDelete("{id}")]
-        public virtual IActionResult Delete(object key)
+        public virtual IActionResult Delete(long id)
         {
-            IException exception = _service.Delete(key);
+            IException exception = _service.Delete(id);
 
             if (exception.IsValid)
             {
