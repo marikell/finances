@@ -22,7 +22,7 @@ namespace Finances.Data.Models
 
         public void SetException(Exception exception)
         {
-            SetError(exception.Message);
+            SetError(exception.InnerException.Message);
         }
 
         public void SetException(string message)
