@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Controllers\ControllerBase.cs~RF44ee2d.TMP" />
+    <None Remove="Properties\Controllers\ControllerBase.cs~RF44ee2d.TMP" />
   </ItemGroup>
 
   <ItemGroup>
