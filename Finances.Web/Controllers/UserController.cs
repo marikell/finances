@@ -21,6 +21,14 @@ namespace Finances.Web.Controllers
             _service = service;
         }
 
+        [HttpGet]
+        public virtual IActionResult Index()
+        {
+            var entities = _service.GetAll();
+
+            return Json(entities);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]RegisterViewModel registerViewModel)
         {
