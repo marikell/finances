@@ -11,7 +11,7 @@ namespace Finances.Web.Controllers
     [Route("api/[controller]")]
     public class ControllerBase<T>: Controller where T:class
     {
-        private IService<T> _service;
+        protected IService<T> _service;
 
         public ControllerBase(IService<T> service)
         {
@@ -43,7 +43,6 @@ namespace Finances.Web.Controllers
             {
                 return Json(entity);
             }
-
             else
             {
                 return new BadRequestObjectResult(exception.GetException());

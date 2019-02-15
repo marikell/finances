@@ -10,6 +10,14 @@ namespace Finances.Web.Controllers
 {
     public class SubCategoryController: ControllerBase<SubCategory>
     {
-        public SubCategoryController(ISubCategoryService service):base(service) { }
+        public SubCategoryController(ISubCategoryService service):base(service) { }        
+
+        [HttpGet]
+        public IActionResult GetSubCategoriesByCategory(int id)
+        {
+            var subcategories = _service.Find(o => o.IdCategory == id).ToList();
+
+            return Json(subcategories);
+        }
     }
 }
