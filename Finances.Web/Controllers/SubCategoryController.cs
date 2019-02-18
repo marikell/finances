@@ -13,9 +13,10 @@ namespace Finances.Web.Controllers
         public SubCategoryController(ISubCategoryService service):base(service) { }        
 
         [HttpGet]
-        public IActionResult GetSubCategoriesByCategory(int id)
+        [Route("category/{id}")]
+        public IActionResult GetSubCategoriesByCategory(string id)
         {
-            var subcategories = _service.Find(o => o.IdCategory == id).ToList();
+            var subcategories = _service.Find(o => o.IdCategory == long.Parse(id)).ToList();
 
             return Json(subcategories);
         }
