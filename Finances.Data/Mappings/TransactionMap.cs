@@ -15,6 +15,7 @@ namespace Finances.Data.Mappings
             builder.Property(o => o.IdTransaction).UseSqlServerIdentityColumn();
             builder.HasOne(o => o.TransactionType).WithMany(o => o.Transactions).HasForeignKey(o => o.IdTransactionType);
             builder.HasOne(o => o.Category).WithMany(o => o.Transactions).HasForeignKey(o => o.IdCategory);
+            builder.HasOne(o => o.SubCategory).WithMany(o => o.Transactions).HasForeignKey(o => o.IdSubCategory);
             builder.Property(o => o.DsTransaction).HasMaxLength(200).IsRequired();
             builder.Property(o => o.IdUser).IsRequired();
             builder.Property(o => o.HasReceipt).IsRequired();

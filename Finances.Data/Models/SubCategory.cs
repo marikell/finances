@@ -10,5 +10,6 @@ namespace Finances.Data.Models
         public string DsSubCategory { get; set; }
         public long IdCategory { get; set; }
         public Category Category { get; set; }
+        public ICollection<Transaction> Transactions { get; set; }
     }
 }
