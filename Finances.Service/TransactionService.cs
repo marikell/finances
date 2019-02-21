@@ -9,6 +9,19 @@ namespace Finances.Service
 {
     public class TransactionService: Service<Transaction>, ITransactionService
     {
-        public TransactionService(ITransactionRepository repository): base(repository) { }       
+        public ITransactionRepository Repository
+        {
+            get
+            {
+                return (ITransactionRepository)_repository;
+            }
+        }
+
+        public TransactionService(ITransactionRepository repository): base(repository) { }
+
+        public IEnumerable<Transaction> GetAllWithObjects()
+        {
+            return Repository.GetAllWithObjects();
+        }
     }
 }

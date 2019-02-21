@@ -37,7 +37,7 @@ namespace Finances.Web.Controllers
             }
             else
             {
-                transactions = _transactionService.GetAll().ToList();
+                transactions = _transactionService.GetAllWithObjects().ToList();
             }
 
             var transactionViewModels = transactions.Select(o => new TransactionViewModel
@@ -54,8 +54,13 @@ namespace Finances.Web.Controllers
 
             }).ToList();
 
-            var groupedTransactions = transactions.GroupBy(o => o.DatTransaction.Month)
-                .Select(o => o.ToList());          
+            var groupedTransactions = transactionViewModels.GroupBy(o => o.DatTransaction.Month)
+                .Select(o => new {
+
+                    o.Key,
+                    Transactions = o.ToList()
+
+                });      
 
 
                 
@@ -70,14 +75,26 @@ namespace Finances.Web.Controllers
                 excelWorksheet.Cells[1, i].Value = columns.ElementAt(i-1);
             }
 
-            foreach (var groupedMonth in groupedTransactions)
+            for (int i = 0; i < groupedTransactions.Count(); i++)
             {
-                for (int i = 0; i < columns.Length; i++)
-                {
+                var transactionGrouped = groupedTransactions.ElementAt(i);
 
+                for (int j = 0; j < transactionGrouped.Transactions.Count(); j++)
+                {
+                    var transaction = transactionGrouped.Transactions.ElementAt(j);
+
+                    for (int k = 0; k < columns.Length; k++)
+                    {
+                        string propertyName = (Extension.GetPropertyNameByDescription<TransactionViewModel>(
+                            Convert.ToString(excelWorksheet.Cells[1, k+1].Value)));
+
+                        object value = Extension.GetPropertyValue(propertyName, transaction);
+
+                        excelWorksheet.Cells[(k + j + i + 1), k + 1].Value = (value == null) ? string.Empty : Convert.ToString(value);
+                    }
                 }
             }
-            
+                       
 
 
             excelWorksheet.Cells["A:AZ"].AutoFitColumns();

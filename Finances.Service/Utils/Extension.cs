@@ -16,7 +16,46 @@ namespace Finances.Service.Utils
 
         public static object GetPropertyValue<T>(string propertyName, T entity) where T : class
         {
-            return typeof(T).GetProperty(propertyName).GetValue(entity, null);
+            try
+            {
+                return typeof(T).GetProperty(propertyName).GetValue(entity, null);
+            }
+            catch (Exception e)
+            {
+
+                return null;
+            }
+        }
+
+        public static string GetPropertyNameByDescription<T>(string descriptionColumn) where T:class
+        {
+            var properties = typeof(T).GetProperties();
+
+            foreach (var propertyInfo in properties)
+            {
+                try
+                {
+                    var description = propertyInfo.GetCustomAttributes(typeof(DescriptionAttribute), true);
+
+                    DescriptionAttribute descriptioAttribute = (DescriptionAttribute)description[0];
+
+                    if(descriptioAttribute.Description == descriptionColumn)
+                    {
+                        return propertyInfo.Name;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+
+                }
+                catch (Exception e)
+                {
+                    continue;
+                }
+            }
+
+            return string.Empty;
         }
 
         public static string[] GetPropertiesDescription<T>() where T : class
