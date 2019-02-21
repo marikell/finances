@@ -38,7 +38,7 @@ namespace Finances.Web.ViewModels
         {
             get
             {
-                return (String.Format("R$ {0}", Convert.ToString(VlTransaction)));
+                return string.Format("R$ {0}", Convert.ToString(VlTransaction));
             }
         }
     }

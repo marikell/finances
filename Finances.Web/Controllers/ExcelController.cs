@@ -1,5 +1,7 @@
 ﻿using Finances.Data.Models;
 using Finances.Service.Interfaces;
+using Finances.Service.Utils;
+using Finances.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml;
 using Syncfusion.XlsIO;
@@ -30,26 +32,53 @@ namespace Finances.Web.Controllers
 
             if (dtFilter.HasValue)
             {
-                transactions = _transactionService.Find(o => o.DatTransaction.Month == dtFilter.Value.Month).ToList();
+                transactions = _transactionService.Find(o => o.DatTransaction.Month == dtFilter.Value.Month);
+                    
             }
             else
             {
                 transactions = _transactionService.GetAll().ToList();
             }
 
-            var groupedTransactions = transactions.GroupBy(o => o.DatTransaction.Month);
+            var transactionViewModels = transactions.Select(o => new TransactionViewModel
+            {
+
+                DatTransaction = o.DatTransaction,
+                DsCategory = o.Category.DsCategory,
+                DsSubCategory = o.SubCategory.DsSubCategory,
+                DsTransaction = o.DsTransaction,
+                DsTransactionType = o.TransactionType.DsTransactionType,
+                DsUser = o.User.UserName,
+                DsUserDestination = (o.UserDestination != null) ? o.UserDestination.UserName : string.Empty,
+                VlTransaction = o.VlTransaction
+
+            }).ToList();
+
+            var groupedTransactions = transactions.GroupBy(o => o.DatTransaction.Month)
+                .Select(o => o.ToList());          
 
 
-            var teste = groupedTransactions.ElementAt(0);
+                
+            var columns = Extension.GetPropertiesDescription<TransactionViewModel>();
 
             ExcelPackage package = new ExcelPackage();
 
-            ExcelWorksheet excelWorksheet = package.Workbook.Worksheets.Add("TESTE");
-
-            for (int i = 1; i <= 9; i++)
+            ExcelWorksheet excelWorksheet = package.Workbook.Worksheets.Add("Entradas/Saídas");
+                       
+            for (int i = 1; i <= columns.Count(); i++)
             {
-                excelWorksheet.Cells[1, i].Value = i;
+                excelWorksheet.Cells[1, i].Value = columns.ElementAt(i-1);
             }
+
+            foreach (var groupedMonth in groupedTransactions)
+            {
+                for (int i = 0; i < columns.Length; i++)
+                {
+
+                }
+            }
+            
+
 
             excelWorksheet.Cells["A:AZ"].AutoFitColumns();
 
