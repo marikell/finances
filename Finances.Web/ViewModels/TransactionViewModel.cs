@@ -9,7 +9,7 @@ namespace Finances.Web.ViewModels
     public class TransactionViewModel
     {
         [Description("Data da Transação")]
-        public DateTime DatTransaction { get; set; }
+        public string DatTransaction { get; set; }
         [Description("Valor")]
         public decimal VlTransaction { get; set; }
         [Description("Descrição")]
@@ -25,21 +25,7 @@ namespace Finances.Web.ViewModels
         [Description("Tipo de Entrada")]
         public string DsTransactionType { get; set; }
         [Description("Possui Comprovante?")]
-        protected bool HasReceipt { get; set; }
-        public string FormattedHasReceipt
-        {
-            get
-            {
-                return (HasReceipt) ? "Sim" : "Não";
-            }
-        }
+        public string HasReceipt { get; set; }
 
-        public string FormattedVlTransaction
-        {
-            get
-            {
-                return string.Format("R$ {0}", Convert.ToString(VlTransaction));
-            }
-        }
     }
 }
